@@ -13,6 +13,7 @@ public class Done_GameController : MonoBehaviour
 	public GUIText scoreText;
 	public GUIText restartText;
 	public GUIText gameOverText;
+	public GUIText levelText;
 	
 	private bool gameOver;
 	private bool restart;
