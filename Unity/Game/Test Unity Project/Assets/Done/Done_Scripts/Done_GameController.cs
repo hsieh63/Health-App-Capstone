@@ -25,6 +25,7 @@ public class Done_GameController : MonoBehaviour
 		restart = false;
 		restartText.text = "";
 		gameOverText.text = "";
+		levelText.text = "Level 1";
 		score = 0;
 		UpdateScore ();
 		StartCoroutine (SpawnWaves ());
@@ -45,6 +46,7 @@ public class Done_GameController : MonoBehaviour
 	IEnumerator SpawnWaves ()
 	{
 		yield return new WaitForSeconds (startWait);
+		levelText.text = "";
 		while (true)
 		{
 			for (int i = 0; i < hazardCount; i++)
