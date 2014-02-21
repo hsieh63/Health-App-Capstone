@@ -17,15 +17,24 @@ public class Done_GameController : MonoBehaviour
 	
 	private bool gameOver;
 	private bool restart;
+	private bool notLevelChange;
+	private int waveCount;
+	private int wavesPerLevel;
+	private int levelCount;
 	private int score;
 	
 	void Start ()
 	{
 		gameOver = false;
 		restart = false;
+		notLevelChange = true;
+		score = 0;
+		waveCount = 0;
+		levelCount = 1;
+		wavesPerLevel = 5;
 		restartText.text = "";
 		gameOverText.text = "";
-		score = 0;
+		levelText.text = "Level " + levelCount.ToString();
 		UpdateScore ();
 		StartCoroutine (SpawnWaves ());
 	}
@@ -45,8 +54,16 @@ public class Done_GameController : MonoBehaviour
 	IEnumerator SpawnWaves ()
 	{
 		yield return new WaitForSeconds (startWait);
-		while (true)
+		levelText.text = "";
+		while (notLevelChange)
 		{
+			if(waveCount >= wavesPerLevel) {
+				waveCount = 0;
+				wavesPerLevel =+ 2;
+				levelText.text = "Level " + levelCount.ToString();
+				yield return new WaitForSeconds(5);
+				levelText.text = "";
+			}
 			for (int i = 0; i < hazardCount; i++)
 			{
 				GameObject hazard = hazards [Random.Range (0, hazards.Length)];
@@ -63,6 +80,7 @@ public class Done_GameController : MonoBehaviour
 				restart = true;
 				break;
 			}
+			waveCount++;
 		}
 	}
 	
