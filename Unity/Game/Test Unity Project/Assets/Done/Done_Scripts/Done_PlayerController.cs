@@ -37,8 +37,8 @@ public class Done_PlayerController : MonoBehaviour
 		//Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 		Vector3 movement = Vector3.zero;
 		movement.x = Input.acceleration.x;
-		movement.z = 0.0f;
-		movement.y = Input.acceleration.z;
+		movement.y = 0.0f;
+		movement.z = Input.acceleration.y;
 		rigidbody.velocity = movement * speed;
 		
 		rigidbody.position = new Vector3
