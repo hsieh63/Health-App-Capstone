@@ -31,7 +31,7 @@ public class Done_GameController : MonoBehaviour
 		score = 0;
 		waveCount = 0;
 		levelCount = 1;
-		wavesPerLevel = 5;
+		wavesPerLevel = 1;
 		restartText.text = "";
 		gameOverText.text = "";
 		levelText.text = "Level " + levelCount.ToString();
@@ -41,13 +41,15 @@ public class Done_GameController : MonoBehaviour
 	
 	void Update ()
 	{
-		if (restart)
-		{
-			foreach (Touch screenClick in Input.touches) {
-				if(screenClick.phase == TouchPhase.Began) {
-					Application.LoadLevel (Application.loadedLevel);
+		if (restart) {
+				foreach (Touch screenClick in Input.touches) {
+						if (screenClick.phase == TouchPhase.Began) {
+								Application.LoadLevel (Application.loadedLevel);
+						}
 				}
-			}
+		}
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.LoadLevel(0);
 		}
 	}
 	
@@ -58,6 +60,7 @@ public class Done_GameController : MonoBehaviour
 		while (notLevelChange)
 		{
 			if(waveCount >= wavesPerLevel) {
+				levelCount++;
 				waveCount = 0;
 				wavesPerLevel =+ 2;
 				levelText.text = "Level " + levelCount.ToString();

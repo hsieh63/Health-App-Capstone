@@ -12,9 +12,14 @@ public class Done_PlayerController : MonoBehaviour
 	public float speed;
 	public float tilt;
 	public Done_Boundary boundary;
+	public bool updateTriShoot;
 
 	public GameObject shot;
+	public GameObject shotRight;
+	public GameObject shotLeft;
 	public Transform shotSpawn;
+	public Transform shotSpawnRight;
+	public Transform shotSpawnLeft;
 	public float fireRate;
 	 
 	private float nextFire;
@@ -25,6 +30,10 @@ public class Done_PlayerController : MonoBehaviour
 		{
 			nextFire = Time.time + fireRate;
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+			if(updateTriShoot) {
+				Instantiate(shotRight, shotSpawnRight.position, shotSpawnRight.rotation);
+				Instantiate(shotLeft, shotSpawnLeft.position, shotSpawnLeft.rotation);
+			}
 			audio.Play ();
 		}
 	}
