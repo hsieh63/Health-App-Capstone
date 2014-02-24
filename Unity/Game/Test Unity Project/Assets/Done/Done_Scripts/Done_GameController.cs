@@ -67,13 +67,21 @@ public class Done_GameController : MonoBehaviour
 				yield return new WaitForSeconds(5);
 				levelText.text = "";
 			}
-			for (int i = 0; i < hazardCount; i++)
-			{
-				GameObject hazard = hazards [Random.Range (0, hazards.Length)];
-				Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-				Quaternion spawnRotation = Quaternion.identity;
-				Instantiate (hazard, spawnPosition, spawnRotation);
+			if(levelCount == 2) {
+				Vector3 spawnPositionBoss = new Vector3 (2.5f, 0.0f, 10f);
+				Quaternion spawnRotationBoss = Quaternion.identity;
+				Instantiate (hazards[4], spawnPositionBoss, spawnRotationBoss);
 				yield return new WaitForSeconds (spawnWait);
+			}
+			else {
+				for (int i = 0; i < hazardCount; i++)
+				{
+					GameObject hazard = hazards [Random.Range (0, (hazards.Length - 1))];
+					Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+					Quaternion spawnRotation = Quaternion.identity;
+					Instantiate (hazard, spawnPosition, spawnRotation);
+					yield return new WaitForSeconds (spawnWait);
+				}
 			}
 			yield return new WaitForSeconds (waveWait);
 			

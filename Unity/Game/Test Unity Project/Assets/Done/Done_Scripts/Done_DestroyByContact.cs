@@ -7,9 +7,11 @@ public class Done_DestroyByContact : MonoBehaviour
 	public GameObject playerExplosion;
 	public int scoreValue;
 	private Done_GameController gameController;
+	private int boltCount;
 
 	void Start ()
 	{
+		boltCount = 0;
 		GameObject gameControllerObject = GameObject.FindGameObjectWithTag ("GameController");
 		if (gameControllerObject != null)
 		{
@@ -23,13 +25,33 @@ public class Done_DestroyByContact : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.tag == "Boundary" || other.tag == "Enemy")
+		if (other.tag == "Boundary" || other.tag == "Enemy" || other.tag == "Boss")
 		{
 			return;
 		}
 
+		/*
+		if (other.tag == "Boss") {
+			boltCount++;
+			if (boltCount == 2) {
+				return;
+			}
+		}
+		*/
+
 		if (explosion != null)
 		{
+			/*
+			if (other.tag == "Boss") {
+				boltCount++;
+				if(boltCount == 2) {
+					Instantiate(explosion, transform.position, transform.rotation);
+				}
+			}
+			else {
+				Instantiate(explosion, transform.position, transform.rotation);
+			}
+			*/
 			Instantiate(explosion, transform.position, transform.rotation);
 		}
 
