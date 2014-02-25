@@ -17,6 +17,7 @@ public class Done_GameController : MonoBehaviour
 	
 	private bool gameOver;
 	private bool restart;
+	private bool spawnBoss;
 	private bool notLevelChange;
 	private int waveCount;
 	private int wavesPerLevel;
@@ -27,6 +28,7 @@ public class Done_GameController : MonoBehaviour
 	{
 		gameOver = false;
 		restart = false;
+		spawnBoss = false;
 		notLevelChange = true;
 		score = 0;
 		waveCount = 0;
@@ -67,13 +69,15 @@ public class Done_GameController : MonoBehaviour
 				yield return new WaitForSeconds(5);
 				levelText.text = "";
 			}
-			if(levelCount == 2) {
-				Vector3 spawnPositionBoss = new Vector3 (2.5f, 0.0f, 10f);
+			if((levelCount % 2) == 0 && spawnBoss == false) {
+				spawnBoss = true;
+				Vector3 spawnPositionBoss = new Vector3 (2.5f, 0.0f, 12f);
 				Quaternion spawnRotationBoss = Quaternion.identity;
 				Instantiate (hazards[4], spawnPositionBoss, spawnRotationBoss);
 				yield return new WaitForSeconds (spawnWait);
 			}
-			else {
+			else if((levelCount % 2) != 0) {
+				spawnBoss = false;
 				for (int i = 0; i < hazardCount; i++)
 				{
 					GameObject hazard = hazards [Random.Range (0, (hazards.Length - 1))];

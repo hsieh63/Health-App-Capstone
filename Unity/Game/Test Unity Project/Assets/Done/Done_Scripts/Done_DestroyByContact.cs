@@ -30,28 +30,8 @@ public class Done_DestroyByContact : MonoBehaviour
 			return;
 		}
 
-		/*
-		if (other.tag == "Boss") {
-			boltCount++;
-			if (boltCount == 2) {
-				return;
-			}
-		}
-		*/
-
 		if (explosion != null)
 		{
-			/*
-			if (other.tag == "Boss") {
-				boltCount++;
-				if(boltCount == 2) {
-					Instantiate(explosion, transform.position, transform.rotation);
-				}
-			}
-			else {
-				Instantiate(explosion, transform.position, transform.rotation);
-			}
-			*/
 			Instantiate(explosion, transform.position, transform.rotation);
 		}
 
@@ -60,8 +40,8 @@ public class Done_DestroyByContact : MonoBehaviour
 			Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
 			gameController.GameOver();
 		}
-		
-		gameController.AddScore(scoreValue);
+
+		gameController.AddScore (scoreValue);
 		Destroy (other.gameObject);
 		Destroy (gameObject);
 	}

@@ -6,6 +6,7 @@ public class Done_DestroyByContactBoss : MonoBehaviour
 	public GameObject explosion;
 	public GameObject playerExplosion;
 	public int scoreValue;
+	public int hitpoints;
 	private Done_GameController gameController;
 	private int boltCount;
 
@@ -25,35 +26,30 @@ public class Done_DestroyByContactBoss : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.tag == "Boundary" || other.tag == "Enemy")
+		if (other.tag == "Boundary" || other.tag == "Enemy" || other.tag == "Boss")
 		{
 			return;
 		}
 
+		boltCount++;
+
 		if (explosion != null)
 		{
-			Instantiate(explosion, transform.position, transform.rotation);
-			/*
-			if (other.tag == "Boss") {
-				boltCount++;
-				if (boltCount == 2) {
-					Instantiate(explosion, transform.position, transform.rotation);
-				}
-			}
-			else {
+			if (boltCount == hitpoints) {
 				Instantiate(explosion, transform.position, transform.rotation);
 			}
-			*/
 		}
-
+		
 		if (other.tag == "Player")
 		{
 			Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
 			gameController.GameOver();
 		}
 		
-		gameController.AddScore(scoreValue);
 		Destroy (other.gameObject);
-		Destroy (gameObject);
+		if (boltCount == hitpoints) {
+			gameController.AddScore (scoreValue);
+			Destroy (gameObject);
+		}
 	}
 }
