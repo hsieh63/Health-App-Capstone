@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Done_BombGUI : MonoBehaviour {
 
+	public GameObject explosion;
 	public GUIStyle bombButtonStyle;
 	private string bombButtonText = "Click to use bomb";
 
@@ -18,6 +19,7 @@ public class Done_BombGUI : MonoBehaviour {
 			GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
 			foreach (GameObject target in enemyObjects) {
 				GameObject.Destroy (target);
+				Instantiate(explosion, target.transform.position, target.transform.rotation);
 			}
 		}
 	}

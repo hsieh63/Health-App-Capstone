@@ -7,11 +7,9 @@ public class Done_DestroyByContact : MonoBehaviour
 	public GameObject playerExplosion;
 	public int scoreValue;
 	private Done_GameController gameController;
-	private int boltCount;
 
 	void Start ()
 	{
-		boltCount = 0;
 		GameObject gameControllerObject = GameObject.FindGameObjectWithTag ("GameController");
 		if (gameControllerObject != null)
 		{
