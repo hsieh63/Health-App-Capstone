@@ -62,6 +62,12 @@
      <Compile Include="Assets\Done\Done_Scripts\Done_WeaponController.cs" />
      <Compile Include="Assets\Done\Done_Scripts\Done_WeaponControllerBoss.cs" />
      <Compile Include="Assets\Done\Done_Scripts\MenuTextControls.cs" />
+     <Compile Include="Assets\Done\Done_Scripts\Menu_Exitgame.cs" />
+     <Compile Include="Assets\Done\Done_Scripts\Menu_GameController.cs" />
+     <Compile Include="Assets\Done\Done_Scripts\Menu_Playgame.cs" />
+     <Compile Include="Assets\Done\Done_Scripts\Menu_Userinput.cs" />
+     <Compile Include="Assets\Done\Done_Scripts\UserInput_ExampleTextBox.cs" />
+     <Compile Include="Assets\Done\Done_Scripts\UserInput_GameController.cs" />
  <Reference Include="IFacebook">
  <HintPath>Assets\Facebook\Scripts\IFacebook.dll</HintPath>
  </Reference>
