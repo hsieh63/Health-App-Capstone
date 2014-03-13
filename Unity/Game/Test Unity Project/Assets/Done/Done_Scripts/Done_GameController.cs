@@ -1,8 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
+
+/*
+static class upgrades {
+	public static bool bombUpgrade = false;
+	public static bool trishooterUpgrade = false;
+}
+*/
 
 public class Done_GameController : MonoBehaviour
 {
+	//public static bool bombUpgrade = false;
+	//public static bool trishooterUpgrade = false;
+
 	public GameObject[] hazards;
 	public Vector3 spawnValues;
 	public int hazardCount;
@@ -23,6 +34,7 @@ public class Done_GameController : MonoBehaviour
 	private int wavesPerLevel;
 	private int levelCount;
 	private int score;
+	private string applicationPath;
 	
 	void Start ()
 	{
@@ -37,6 +49,27 @@ public class Done_GameController : MonoBehaviour
 		restartText.text = "";
 		gameOverText.text = "";
 		levelText.text = "Level " + levelCount.ToString();
+
+		/*
+		applicationPath = Application.persistentDataPath.ToString ();
+		string filePath = applicationPath + "/upgrades.txt";
+		StreamReader sR = new StreamReader (filePath);
+		string upgradeFile = sR.ReadToEnd ();
+		sR.Close ();
+		string[] upgradeText = upgradeFile.Split ("\n");
+		foreach (string upgradeBool in upgradeText) {
+			string[]upgradeLine = upgradeBool.Split (",");
+			foreach (string upgrade in upgradeLine) {
+				if(upgrade.CompareTo("bomb") == 1) {
+					bombUpgrade = true;
+				}
+				else if(upgrade.CompareTo("trishooter") == 1) {
+					trishooterUpgrade = true;
+				}
+			}
+		}
+		*/
+
 		UpdateScore ();
 		StartCoroutine (SpawnWaves ());
 	}
@@ -112,6 +145,8 @@ public class Done_GameController : MonoBehaviour
 	
 	public void GameOver ()
 	{
+		//write score to file/database
+
 		gameOverText.text = "Game Over!";
 		gameOver = true;
 	}

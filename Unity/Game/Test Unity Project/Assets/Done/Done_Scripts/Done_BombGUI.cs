@@ -7,6 +7,9 @@ public class Done_BombGUI : MonoBehaviour {
 	public GUIStyle bombButtonStyle;
 	private string bombButtonText = "Click to use bomb";
 
+	void Start() {
+	}
+
 	void OnGUI() {
 		int screenHeight = Screen.height;
 		int screenWidth = Screen.width;
