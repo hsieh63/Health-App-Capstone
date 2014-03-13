@@ -37,6 +37,7 @@ import com.google.common.collect.BiMap;
 import com.shimmerresearch.android.Shimmer;
 import com.shimmerresearch.driver.FormatCluster;
 import com.shimmerresearch.driver.ObjectCluster;
+import com.unity3d.player.UnityPlayerActivity;
 //import android.graphics.Matrix;
 public class ShimmerGraph extends Activity {
 
@@ -70,14 +71,14 @@ public class ShimmerGraph extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.main);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
+        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
         // Set up the custom title
         mTitle = (TextView) findViewById(R.id.title_left_text);
-        mTitle.setText(R.string.app_name);
+       // mTitle.setText(R.string.app_name);
         mTitle = (TextView) findViewById(R.id.title_right_text);
-        mTitle.setText(R.string.title_not_connected);
+        //mTitle.setText(R.string.title_not_connected);
         mDialog = new Dialog(this);
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if(mBluetoothAdapter == null) {
@@ -114,10 +115,17 @@ public class ShimmerGraph extends Activity {
     	mShimmerDevice = new Shimmer(null, mHandler,"Device 1",false);
     	
     	showLoggedData();
-    	
+    	//playGame();
     }
     
-    
+    private void playGame(){
+    	try{
+    	Intent startGame = new Intent(this, com.unity3d.player.UnityPlayerNativeActivity.class);
+    	startActivity(startGame);
+    	}catch(Exception e){
+    		Log.d("Shimmer","SLD"+e.getMessage());
+    	}
+    }
     
     
     /* Added this function which accesses the previously logged data and plots it on the graph */
@@ -606,6 +614,11 @@ public class ShimmerGraph extends Activity {
      	case R.id.viewsensor:
      		showSelectSensorPlot();
 			return true;
+			
+     	case R.id.playgame:
+     		playGame();
+     		return true;
+			
 		default:
 			return super.onOptionsItemSelected(item);
 		}

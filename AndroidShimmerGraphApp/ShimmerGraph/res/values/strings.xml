@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ShimmerGraph</string>
+    <string name="game">ShooterGame</string>
     <string name="connect">Connect a Shimmer</string>
     <string name="disconnect">Disconnect Shimmer</string>
     <string name="startstream">Start streaming</string>
     <string name="stopstream">Stop streaming</string>
+    <string name="playgame">Play game</string>
     <string name="title_paired_devices">Paired Devices</string>
     <string name="button_scan">Scan for devices</string>
     <string name="title_other_devices">Other Available Devices</string>

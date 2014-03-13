@@ -6,6 +6,6 @@
     </item>
     <item android:title="@string/settings" android:icon="@android:drawable/ic_menu_preferences" android:id="@+id/settings"></item>
     <item android:id="@+id/viewsensor" android:title="@string/viewsensor"></item>
-
+    <item android:id="@+id/playgame" android:title="@string/playgame"></item>
     
 </menu>

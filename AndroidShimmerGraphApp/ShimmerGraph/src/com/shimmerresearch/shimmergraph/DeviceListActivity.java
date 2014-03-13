@@ -19,7 +19,6 @@ package com.shimmerresearch.shimmergraph;
 
 import java.util.Set;
 
-import com.shimmerresearch.shimmergraph.R;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
