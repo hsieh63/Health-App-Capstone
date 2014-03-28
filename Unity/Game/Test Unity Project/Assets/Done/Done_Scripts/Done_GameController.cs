@@ -35,6 +35,9 @@ public class Done_GameController : MonoBehaviour
 	private int levelCount;
 	private int score;
 	private string applicationPath;
+	private string text;
+	private GameObject bomb;
+	private GameObject player;
 	
 	void Start ()
 	{
@@ -50,8 +53,10 @@ public class Done_GameController : MonoBehaviour
 		gameOverText.text = "";
 		levelText.text = "Level " + levelCount.ToString();
 
+		bomb = GameObject.Find ("BombGui");
+		player = GameObject.Find ("Done_Player");
+
 		/*
-		applicationPath = Application.persistentDataPath.ToString ();
 		string filePath = applicationPath + "/upgrades.txt";
 		StreamReader sR = new StreamReader (filePath);
 		string upgradeFile = sR.ReadToEnd ();
@@ -69,6 +74,20 @@ public class Done_GameController : MonoBehaviour
 			}
 		}
 		*/
+		applicationPath = Application.persistentDataPath.ToString ();
+
+		StreamReader file = new StreamReader (applicationPath + "/test.txt");
+		while ((text = file.ReadLine ()) != null) {
+			if (text == "test1"){
+				bomb.GetComponent<Done_BombGUI>().bombgui = true;
+				player.GetComponent<Done_PlayerController>().updateTriShoot = true;
+			}
+			else if(text == "test2"){
+				bomb.GetComponent<Done_BombGUI>().bombgui = false;
+				player.GetComponent<Done_PlayerController>().updateTriShoot = false;
+			}
+		}
+		file.Close ();
 
 		UpdateScore ();
 		StartCoroutine (SpawnWaves ());

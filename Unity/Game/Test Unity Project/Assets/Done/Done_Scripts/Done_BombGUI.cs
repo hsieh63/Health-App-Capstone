@@ -9,21 +9,31 @@ public class Done_BombGUI : MonoBehaviour {
 	public GameObject explosion;
 	public GUIStyle bombButtonStyle;
 	public TextAsset txtFile;
+	public bool bombgui;
 	protected FileInfo sourceFile = null;
 	protected StreamReader sr = null;
-	protected string text = " ";
+	protected string text;
 	private string bombButtonText = "Click to use bomb";
-	private bool bombgui = false;
 
 	void Start() {
-		/*
 		//i think persistent path is the way to go since it allows real time editing?
 		string applicationPath = Application.persistentDataPath.ToString ();
 		//using assetdatabase is one way
-		//sourceFile = new FileInfo (applicationPath + "/test.txt");
+		sourceFile = new FileInfo (applicationPath + "/test.txt");
+		StreamReader file = new StreamReader (applicationPath + "/test.txt");
+		while ((text = file.ReadLine ()) != null) {
+			if (text == "test1"){
+				bombgui = true;
+			}
+			else if(text == "test2"){
+				bombgui = false;
+			}
+		}
+		file.Close ();
 		//sourceFile = new FileInfo ("Assets/test.txt");
-		sourceFile = new FileInfo ("/test.txt");
+		//sourceFile = new FileInfo ("/test.txt");
 		//sr = sourceFile.OpenText ();
+		/*
 		using (sr) {
 			while (text != null) {
 				text = sr.ReadLine();
@@ -36,8 +46,6 @@ public class Done_BombGUI : MonoBehaviour {
 			}
 			sr.Close();
 		}
-		*/
-		/*
 		if (text != null) {
 			text = sr.ReadLine();
 			if (text == "test1"){
@@ -48,6 +56,7 @@ public class Done_BombGUI : MonoBehaviour {
 			}
 		}
 		*/
+		/*
 		text = txtFile.text;
 		if (text == "test1"){
 			bombgui = true;
@@ -55,6 +64,7 @@ public class Done_BombGUI : MonoBehaviour {
 		else if(text == "test2"){
 			bombgui = false;
 		}
+		*/
 	}
 	
 	void OnGUI() {
