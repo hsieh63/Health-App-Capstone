@@ -175,6 +175,9 @@ public class Done_GameController : MonoBehaviour
 	{
 		//write score to file/database
 
+		//call endgame, which saves score locally (and if logged in, via the fb api)
+		GameStatus.EndGame(score);
+		
 		gameOverText.text = "Game Over!";
 		gameOver = true;
 	}
