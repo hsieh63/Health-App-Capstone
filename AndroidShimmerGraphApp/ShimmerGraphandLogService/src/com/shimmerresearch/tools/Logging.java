@@ -22,6 +22,8 @@ public class Logging {
 	String mFileName="";
 	BufferedWriter writer=null;
 	File outputFile;
+	BufferedWriter stateWriter=null;
+	File stateFile;
 	String mDelimiter=","; //default is comma
 	
 	/**
@@ -53,14 +55,16 @@ public class Logging {
 		mFileName=myName;
 		mDelimiter=delimiter;
 
-		 File root = new File(Environment.getExternalStorageDirectory() + "/"+folderName);
+		 //File root = new File(Environment.getExternalStorageDirectory() + "/"+folderName);
 
+		File root = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/com.Capstone.testSpaceShooter/files");
 		   if(!root.exists())
 		    {
-		        if(root.mkdir()); //directory is created;
+		        if(root.mkdirs()); //directory is created;
 		    }
 		   //outputFile = new File(root, mFileName+".dat");
 		   outputFile = new File(root, "data.txt");
+		   stateFile = new File(root, "upgradeState.txt");
 	}
 	
 	
@@ -77,6 +81,7 @@ public class Logging {
 
 			if (mFirstWrite==true) {
 				writer = new BufferedWriter(new FileWriter(outputFile,true));
+				stateWriter = new BufferedWriter(new FileWriter(stateFile,false));
 				
 	    		//First retrieve all the unique keys from the objectClusterLog
 				Multimap<String, FormatCluster> m = objectClusterLog.mPropertyCluster;
@@ -142,6 +147,7 @@ public class Logging {
             }
 			writer.newLine();
 			Log.d("Shimmer","Data Written");
+			stateWriter.write("0");
 			mFirstWrite=false;
 			}
 			
@@ -152,6 +158,13 @@ public class Logging {
 				Log.d("Shimmer","Data : " +mSensorNames[r] + formatCluster.mData + " "+ formatCluster.mUnits);
 				writer.write(Double.toString(formatCluster.mData));
             	writer.write(mDelimiter);
+            	if(r==(mSensorNames.length -1)){
+            		if(formatCluster.mData > 60000){
+            			stateWriter.write("2");
+            		}else if(formatCluster.mData > 10000){
+            			stateWriter.write("1");
+            		}
+            	}
 			}
 			writer.newLine();
 			
@@ -168,6 +181,14 @@ public class Logging {
 		if (writer != null){
 			try {
 				writer.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (stateWriter != null){
+			try {
+				stateWriter.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

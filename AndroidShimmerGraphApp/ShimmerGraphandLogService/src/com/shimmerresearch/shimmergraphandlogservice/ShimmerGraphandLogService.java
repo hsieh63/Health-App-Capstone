@@ -37,9 +37,11 @@
 package com.shimmerresearch.shimmergraphandlogservice;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Collection;
 import java.util.List;
 
@@ -82,6 +84,8 @@ import com.shimmerresearch.tools.Logging;
 //import android.graphics.Matrix;
 
 public class ShimmerGraphandLogService extends ServiceActivity {
+	
+	private static int state = 0;
 
 	private static Context context;
 	static final int REQUEST_ENABLE_BT = 1;
@@ -841,12 +845,38 @@ public class ShimmerGraphandLogService extends ServiceActivity {
 	}
 	
 	private void playGame(){
+		
+		try{
+			File root = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/com.Capstone.testSpaceShooter/files");
+			   if(!root.exists())
+			    {
+			        if(root.mkdirs()); //directory is created;
+			    }
+			File stateFile = new File(root, "upgradeState.txt");
+			BufferedWriter stateWriter = new BufferedWriter(new FileWriter(stateFile,false));
+			
+			stateWriter.write(state);
+			stateWriter.close();
+			if(state == 2){
+				state = 0;
+			}else{
+				state++;
+			}
+			
+		}catch(Exception e){
+			Toast.makeText(this, "Unhandled Exception"+" "+e.toString(), Toast.LENGTH_SHORT).show();
+			Log.d("Shimmer","SLD: "+e.toString());
+		}
+		
+		
+		/*
     	try{
     	Intent startGame = new Intent(this, com.unity3d.player.UnityPlayerNativeActivity.class);
     	startActivity(startGame);
     	}catch(Exception e){
-    		Log.d("Shimmer","SLD"+e.getMessage());
+    		Log.d("Shimmer","SLD "+e.getMessage());
     	}
+    	*/
     }
 	
 	private void plotLog(){
@@ -857,7 +887,7 @@ public class ShimmerGraphandLogService extends ServiceActivity {
 		try
 		{
 
-			File dir = Environment.getExternalStorageDirectory();
+			File dir = new File(Environment.getExternalStorageDirectory()+"/Android/data/com.Capstone.testSpaceShooter/files");
 			/* currently the file must be placed in the root folder and named data.txt */
 			File file = new File(dir,"data.txt");
 			
@@ -867,8 +897,6 @@ public class ShimmerGraphandLogService extends ServiceActivity {
 			double[] calibratedDataArray = new double[0];
 			String[] sensorName = new String[0];
 			String units="";
-			String calibratedUnits="";
-			String calibratedUnits2="";
 
 			BufferedReader br = new BufferedReader(new FileReader(file));  
 			String line;
@@ -882,7 +910,7 @@ public class ShimmerGraphandLogService extends ServiceActivity {
 				line = br.readLine();
 				line = br.readLine();
 			}else{
-				Toast.makeText(this, "\"data.txt\" not found in Root directory\n", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "\"data.txt\" not found\n", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			
@@ -957,6 +985,7 @@ public class ShimmerGraphandLogService extends ServiceActivity {
 				sensorName[0] = "ECG RA-LL";
 				sensorName[1] = "ECG LA-LL";
 				units="u12";
+				rawFirst = true;
 			}
 			if (mSensorView.equals("Strain Gauge")){
 				sensorName = new String[2]; 
