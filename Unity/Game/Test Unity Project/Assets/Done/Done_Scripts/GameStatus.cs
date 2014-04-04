@@ -8,7 +8,7 @@ public class GameStatus : MonoBehaviour {
 
 	private static GameStatus instance;
 	public static int score = 0;
-	public static int highScore = 100;
+	public static int highScore = 0;
 	
 	private string username = null;
 
