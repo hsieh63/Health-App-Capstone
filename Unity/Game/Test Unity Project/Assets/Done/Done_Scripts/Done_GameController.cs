@@ -75,27 +75,30 @@ public class Done_GameController : MonoBehaviour
 		}
 		*/
 		applicationPath = Application.persistentDataPath.ToString ();
-		
-		StreamReader file = new StreamReader (applicationPath + "/upgradeState.txt");
-		while ((text = file.ReadLine ()) != null) {
-			if (text == "0") {
-				bomb.GetComponent<Done_BombGUI>().bombgui = false;
-				player.GetComponent<Done_PlayerController>().updateTriShoot = false;
+
+		if (File.Exists (applicationPath + "/upgradeState.txt")) {
+			StreamReader file = new StreamReader (applicationPath + "/upgradeState.txt");
+			while ((text = file.ReadLine ()) != null) {
+					if (text == "0") {
+							bomb.GetComponent<Done_BombGUI> ().bombgui = false;
+							player.GetComponent<Done_PlayerController> ().updateTriShoot = false;
+					} else if (text == "1") {
+							bomb.GetComponent<Done_BombGUI> ().bombgui = false;
+							player.GetComponent<Done_PlayerController> ().updateTriShoot = true;
+					} else if (text == "2") {
+							bomb.GetComponent<Done_BombGUI> ().bombgui = true;
+							player.GetComponent<Done_PlayerController> ().updateTriShoot = true;
+					} else {
+							bomb.GetComponent<Done_BombGUI> ().bombgui = false;
+							player.GetComponent<Done_PlayerController> ().updateTriShoot = false;
+					}
 			}
-			else if (text == "1"){
-				bomb.GetComponent<Done_BombGUI>().bombgui = false;
-				player.GetComponent<Done_PlayerController>().updateTriShoot = true;
-			}
-			else if(text == "2"){
-				bomb.GetComponent<Done_BombGUI>().bombgui = true;
-				player.GetComponent<Done_PlayerController>().updateTriShoot = true;
-			}
-			else {
-				bomb.GetComponent<Done_BombGUI>().bombgui = false;
-				player.GetComponent<Done_PlayerController>().updateTriShoot = false;
-			}
+			file.Close ();
+		} 
+		else {
+			bomb.GetComponent<Done_BombGUI> ().bombgui = false;
+			player.GetComponent<Done_PlayerController> ().updateTriShoot = false;
 		}
-		file.Close ();
 
 
 		UpdateScore ();
@@ -175,9 +178,6 @@ public class Done_GameController : MonoBehaviour
 	{
 		//write score to file/database
 
-		//call endgame, which saves score locally (and if logged in, via the fb api)
-		GameStatus.EndGame(score);
-		
 		gameOverText.text = "Game Over!";
 		gameOver = true;
 	}
