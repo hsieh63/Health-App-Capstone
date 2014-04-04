@@ -16,6 +16,7 @@ public class Done_BombGUI : MonoBehaviour {
 	private string bombButtonText = "Click to use bomb";
 
 	void Start() {
+		/*
 		//i think persistent path is the way to go since it allows real time editing?
 		string applicationPath = Application.persistentDataPath.ToString ();
 		//using assetdatabase is one way
@@ -30,6 +31,7 @@ public class Done_BombGUI : MonoBehaviour {
 			}
 		}
 		file.Close ();
+		*/
 		//sourceFile = new FileInfo ("Assets/test.txt");
 		//sourceFile = new FileInfo ("/test.txt");
 		//sr = sourceFile.OpenText ();
