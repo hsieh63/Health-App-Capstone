@@ -86,12 +86,12 @@ public class GraphView extends View {
     	final int length = values.length;
         final Paint paintText = mPaintText;
         int offset=0;
-        if (dataType=="u8"){setMaxValue(255);offset=0;}
-        else if (dataType=="i8"){setMaxValue(255);offset=127;} //center the graph, so the negative values will be displayed
-        else if (dataType=="i12"){setMaxValue(4095);offset=2048;}
-        else if (dataType=="u12"){setMaxValue(4095);offset=0;}
-        else if (dataType=="u16"){setMaxValue(65535);offset=0;}
-        else if (dataType=="i16"){setMaxValue(65535);offset=32767;}        // it is actually a signed 12bit value for magnetometer
+        if (dataType.equals("u8")){setMaxValue(255);offset=0;}
+        else if (dataType.equals("i8")){setMaxValue(255);offset=127;} //center the graph, so the negative values will be displayed
+        else if (dataType.equals("i12")){setMaxValue(4095);offset=2048;}
+        else if (dataType.equals("u12")){setMaxValue(4095);offset=0;}
+        else if (dataType.equals("u16")){setMaxValue(65535);offset=0;}
+        else if (dataType.equals("i16")){setMaxValue(65535);offset=32767;}        // it is actually a signed 12bit value for magnetometer
         	paintText.setColor(Color.argb(255, 255, 255, 255));
         mCanvas.drawText(deviceID, 5, 10, mPaintText);
     	try {

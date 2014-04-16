@@ -623,7 +623,7 @@ public class ShimmerGraphandLogService extends ServiceActivity {
         }
     };
 	
-    private static Context getContext(){
+    public static Context getContext(){
     	return ShimmerGraphandLogService.context;
     }
     
@@ -855,13 +855,17 @@ public class ShimmerGraphandLogService extends ServiceActivity {
 			File stateFile = new File(root, "upgradeState.txt");
 			BufferedWriter stateWriter = new BufferedWriter(new FileWriter(stateFile,false));
 			
-			stateWriter.write(state);
+			stateWriter.write(Integer.toString(state));
 			stateWriter.close();
+			Log.d("Shimmer","SLD: wrote state "+state);
+			Toast.makeText(this, "Wrote State: "+state, Toast.LENGTH_SHORT).show();
+			
 			if(state == 2){
 				state = 0;
 			}else{
 				state++;
 			}
+			
 			
 		}catch(Exception e){
 			Toast.makeText(this, "Unhandled Exception"+" "+e.toString(), Toast.LENGTH_SHORT).show();
@@ -1169,8 +1173,8 @@ public class ShimmerGraphandLogService extends ServiceActivity {
 		}
 		catch(FileNotFoundException e){
 			//print file not found error message
-			Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
-			Toast.makeText(this, "\"data.txt\" not found in Root directory\n", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "\"data.txt\" not found\n", Toast.LENGTH_SHORT).show();
 		}
 		catch(Exception e){
 			//do nothing
