@@ -13,26 +13,49 @@ public class Done_PlayerController : MonoBehaviour
 	public float tilt;
 	public Done_Boundary boundary;
 	public bool updateTriShoot;
+	public bool updateBigShot;
+	public bool updateDualBigShot;
+	public int shieldPoint;
 
 	public GameObject shot;
 	public GameObject shotRight;
 	public GameObject shotLeft;
+	public GameObject bigShot;
 	public Transform shotSpawn;
 	public Transform shotSpawnRight;
 	public Transform shotSpawnLeft;
 	public float fireRate;
 	 
 	private float nextFire;
+
+//	void Start() {
+//		if (shieldPoint > 0) {
+//			renderer.material.color = Color.blue;
+//		} else {
+//			renderer.material.color = Color.white;
+//		}
+//	}
 	
 	void Update ()
 	{
 		if (Input.GetButton("Fire1") && Time.time > nextFire) 
 		{
 			nextFire = Time.time + fireRate;
-			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-			if(updateTriShoot) {
-				Instantiate(shotRight, shotSpawnRight.position, shotSpawnRight.rotation);
-				Instantiate(shotLeft, shotSpawnLeft.position, shotSpawnLeft.rotation);
+			if (updateBigShot) {
+				if(updateDualBigShot) {
+					Instantiate(bigShot  , shotSpawnRight.position, shotSpawnRight.rotation);
+					Instantiate(bigShot  , shotSpawnLeft.position, shotSpawnLeft.rotation);
+				}
+				else {
+					Instantiate(bigShot  , shotSpawn.position, shotSpawn.rotation);
+				}
+			}
+			else{
+				Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+				if(updateTriShoot) {
+					Instantiate(shotRight, shotSpawnRight.position, shotSpawnRight.rotation);
+					Instantiate(shotLeft, shotSpawnLeft.position, shotSpawnLeft.rotation);
+				}
 			}
 			audio.Play ();
 		}

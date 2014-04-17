@@ -18,9 +18,11 @@ public class Menu_Links : MonoBehaviour {
 	{
 		//Algorithms with user input to determine types of pages to link to
 		//link to webpage
-		//Application.OpenURL ("http://www.reddit.com/r/fitness");
+		Application.OpenURL ("http://www.reddit.com/r/fitness");
+		/*
 		AndroidJavaClass testcl = new AndroidJavaClass ("com.unity3d.player.UnityPlayer");
 		AndroidJavaObject testob = testcl.GetStatic<AndroidJavaObject> ("currentActivity");
 		testob.Call ("Launch");
+		*/
 	}
 }

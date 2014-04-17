@@ -10,10 +10,11 @@ public class Done_BombGUI : MonoBehaviour {
 	public GUIStyle bombButtonStyle;
 	public TextAsset txtFile;
 	public bool bombgui;
+	public int bombCount;
 	protected FileInfo sourceFile = null;
 	protected StreamReader sr = null;
 	protected string text;
-	private string bombButtonText = "Click to use bomb";
+	private string bombButtonText = "Click to use bomb ";
 
 	void Start() {
 		/*
@@ -75,14 +76,17 @@ public class Done_BombGUI : MonoBehaviour {
 		Rect buttonPlacement = new Rect ((screenWidth * 5) / 6, (screenHeight * 5) / 6, 150f, 150f);
 		//Rect buttonPlacement = new Rect (100, 100, 150, 150);
 		if (bombgui) {
-			GUIContent bombButtonContent = new GUIContent (bombButtonText);
+			GUIContent bombButtonContent = new GUIContent (bombButtonText + bombCount.ToString() + " times");
 			//GUI.Button (buttonPlacement, bombButtonContent, bombButtonStyle);
-			if (GUI.Button (buttonPlacement, bombButtonContent)) {
-				//bombButtonText = "Height: " + Screen.height + ". Width: " + Screen.width;
-				GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag ("Enemy");
-				foreach (GameObject target in enemyObjects) {
-					GameObject.Destroy (target);
-					Instantiate (explosion, target.transform.position, target.transform.rotation);
+			if(bombCount > 0) {
+				if (GUI.Button (buttonPlacement, bombButtonContent)) {
+					//bombButtonText = "Height: " + Screen.height + ". Width: " + Screen.width;
+					GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag ("Enemy");
+					foreach (GameObject target in enemyObjects) {
+						GameObject.Destroy (target);
+						Instantiate (explosion, target.transform.position, target.transform.rotation);
+					}
+					bombCount--;
 				}
 			}
 		}

@@ -9,6 +9,7 @@ public class Done_DestroyByContactBoss : MonoBehaviour
 	public int hitpoints;
 	private Done_GameController gameController;
 	private int boltCount;
+	private int playerHealth;
 
 	void Start ()
 	{
@@ -40,13 +41,26 @@ public class Done_DestroyByContactBoss : MonoBehaviour
 			}
 		}
 		
-		if (other.tag == "Player")
-		{
-			Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
-			gameController.GameOver();
+		if (other.tag == "Player") {
+			playerHealth = other.GetComponent<Done_PlayerController>().shieldPoint;
+			Debug.Log ("OnTrigger Destroy health = " + playerHealth.ToString ());
+			if (playerHealth == 0) {
+				Instantiate (playerExplosion, other.transform.position, other.transform.rotation);
+				gameController.GameOver ();
+				Destroy (other.gameObject);
+			}
+			else {
+				playerHealth--;
+				other.GetComponent<Done_PlayerController>().shieldPoint = playerHealth;
+				if(playerHealth == 0) {
+					other.renderer.material.color = Color.white;
+				}
+			}
 		}
-		
-		Destroy (other.gameObject);
+		else {
+			Destroy (other.gameObject);
+		}
+
 		if (boltCount == hitpoints) {
 			gameController.AddScore (scoreValue);
 			Destroy (gameObject);
